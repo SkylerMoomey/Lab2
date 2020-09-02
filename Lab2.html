@@ -1520,6 +1520,29 @@ div.tocify {
 <h1>Tasks</h1>
 <div id="task-1" class="section level2">
 <h2>Task 1</h2>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Users/skylermoomey/Desktop/MATH4753/Laboratories/Lab2&quot;</code></pre>
+</div>
+<div id="task-2" class="section level2">
+<h2>Task 2</h2>
+<pre class="r"><code>epagas_data=read.csv(&quot;EPAGAS.csv&quot;)
+head(epagas_data)</code></pre>
+<pre><code>##    MPG
+## 1 36.3
+## 2 41.0
+## 3 36.9
+## 4 37.1
+## 5 44.9
+## 6 36.8</code></pre>
+</div>
+<div id="task-3" class="section level2">
+<h2>Task 3</h2>
+<pre class="r"><code>mpg &lt;- epagas_data$MPG
+
+z &lt;- (mpg - mean(mpg))/sd(mpg)
+mean_z = mean(z)
+sd_z = sd(z)</code></pre>
+<p>The mean z score is: 1.058709210^{-16} while the standard deviation is 1</p>
 </div>
 </div>
 

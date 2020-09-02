@@ -15,3 +15,26 @@ knitr::opts_chunk$set(echo = TRUE)
 # Tasks
 
 ## Task 1
+
+```{r}
+getwd()
+```
+
+## Task 2
+
+```{r}
+epagas_data=read.csv("EPAGAS.csv")
+head(epagas_data)
+```
+
+## Task 3
+
+```{r}
+mpg <- epagas_data$MPG
+
+z <- (mpg - mean(mpg))/sd(mpg)
+mean_z = mean(z)
+sd_z = sd(z)
+```
+
+The mean z score is: `r mean_z` while the standard deviation is `r sd_z`
