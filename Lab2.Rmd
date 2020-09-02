@@ -45,8 +45,6 @@ sd_z = sd(z)
 
 The mean z score is: `r mean_z`, which is approximately 0, while the standard deviation is `r sd_z`
 
-## Task 4
-
 The first line corresponds to the only definite outlier (RED), and the second corresponds to the 3 possible outliers (BLUE).
 ```{r}
 outliers <- mpg[abs(z) > 3]
@@ -65,3 +63,24 @@ mypch = ifelse(abs(z)>3, 20,
 library(lattice)
 dotplot(mpg,col=mycol)
 ```
+## Task 4
+
+```{r}
+boxplot(mpg,xlab="MPG",col="Black",notch=TRUE, horizontal = TRUE)
+title(main = "EPAGAS", col.main = "Blue")
+
+length(mpg)
+length(mpg[abs(z) <= 3])
+
+#function taken from https://www.tutorialspoint.com/r/r_mean_median_mode.htm
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+According to Chebyshev, there should be $1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} = 1 - \frac{1}{4} = \frac{3}{4}$ of the data within two standard deviations of the mean. In reality, `r length(mpg[abs(z) <= 3])/length(mpg) * 100`% of the data is within two standard deviations of the mean. 
+
+Chebyshev's theorem guarantees that a minimum of a quarter of the data will be within two standard deviations, which agrees with our findings.
+
+The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is `r getmode(mpg)`, so the empirical rule can be used. It is much more accurate in this case than Chebyshev's Theorem. 
