@@ -23,7 +23,13 @@ getwd()
 ## Task 2
 
 ```{r}
-epagas_data <- read.csv("EPAGAS.csv")
+dird = "C:\\Users\\skyle\\Documents\\Statistics\\Laboratories\\Lab2\\"
+#my function to read data courtesy of Dr. Stewart
+myread=function(csv){
+  fl=paste(dird,csv,sep="")
+  read.table(fl,header=TRUE,sep=",")
+}
+epagas_data=myread("EPAGAS.csv")
 head(epagas_data)
 ```
 
@@ -31,9 +37,31 @@ head(epagas_data)
 
 ```{r}
 mpg <- epagas_data$ï..MPG
-z <- (mpg - mean(mpg))/sd(mpg)
+z = (mpg - mean(mpg))/sd(mpg)
 mean_z = mean(z)
 sd_z = sd(z)
+
 ```
 
 The mean z score is: `r mean_z`, which is approximately 0, while the standard deviation is `r sd_z`
+
+## Task 4
+
+The first line corresponds to the only definite outlier (RED), and the second corresponds to the 3 possible outliers (BLUE).
+```{r}
+outliers <- mpg[abs(z) > 3]
+outliers
+
+possible_outliers <- mpg[abs(z) > 2 & abs(z) <= 3]
+possible_outliers
+
+#Thanks again Dr. Stewart
+mycol = ifelse(abs(z)>3, "Red",
+        ifelse(abs(z)>=2 &abs(z)<=3,"Blue", "Black"))
+
+mypch = ifelse(abs(z)>3, 20,
+        ifelse(abs(z)>=2 &abs(z)<=3,21, 22))
+
+library(lattice)
+dotplot(mpg,col=mycol)
+```
