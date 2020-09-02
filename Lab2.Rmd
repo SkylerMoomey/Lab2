@@ -2,11 +2,16 @@
 title: "Lab2"
 author: "Skyler Moomey"
 date: "9/1/2020"
-output: html_document
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Tasks
 
+## Task 1
