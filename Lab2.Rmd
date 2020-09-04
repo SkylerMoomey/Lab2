@@ -81,3 +81,19 @@ According to Chebyshev, there should be $1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} =
 Chebyshev's theorem guarantees that a minimum of a quarter of the data will be within two standard deviations, which agrees with our findings.
 
 The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is `r getmode(mpg)`, so the empirical rule can be used. It is much more accurate in this case than Chebyshev's Theorem. 
+
+```{r}
+library(ggplot2)
+library(dplyr)
+mn <- mean(epagas_data$ï..MPG)
+sdd <- sd(epagas_data$ï..MPG)
+epagas_data <- epagas_data %>% mutate( z = (ï..MPG-mn)/sdd, 
+                       ZScore = ifelse(abs(z)> 3, "Outlier", 
+                                    ifelse(abs(z)>=2 & abs(z)<=3, 
+                                           "Possible Outlier", "Normal")))
+g <- ggplot(epagas_data, aes(x = ï..MPG)) + geom_dotplot(aes(fill = ZScore),binwidth = 1/5*sdd)
+g <- g + geom_density(aes(y = ..count..))
+g <- g + labs(title = "MPG data categorized by outlier status using z")
+g
+```
+
