@@ -1573,25 +1573,16 @@ title(main = &quot;EPAGAS&quot;, col.main = &quot;Blue&quot;)</code></pre>
 getmode &lt;- function(v) {
    uniqv &lt;- unique(v)
    uniqv[which.max(tabulate(match(v, uniqv)))]
-}</code></pre>
-<p>According to Chebyshev, there should be <span class="math inline">\(1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} = 1 - \frac{1}{4} = \frac{3}{4}\)</span> of the data within two standard deviations of the mean. In reality, 99% of the data is within two standard deviations of the mean.</p>
-<p>Chebyshev’s theorem guarantees that a minimum of a quarter of the data will be within two standard deviations, which agrees with our findings.</p>
-<p>The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is 37, so the empirical rule can be used. It is much more accurate in this case than Chebyshev’s Theorem.</p>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;ggplot2&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     mpg</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+}
+
+length(epagas_data$ï..MPG)</code></pre>
+<pre><code>## [1] 100</code></pre>
+<pre class="r"><code>length(epagas_data$ï..MPG[abs(z) &lt;= 2])</code></pre>
+<pre><code>## [1] 96</code></pre>
+<pre class="r"><code>#proportion of data within 2 standard deviations is 96/100</code></pre>
+<p>According to Chebyshev, there should be <span class="math inline">\(1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} = 1 - \frac{1}{4} = \frac{3}{4}\)</span> of the data within two standard deviations of the mean. In reality, 96% of the data is within two standard deviations of the mean.</p>
+<p>Chebyshev’s theorem guarantees that a minimum of three quarters of the data will be within two standard deviations, which agrees with our findings.</p>
+<p>The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is 37. As you can see in our 2-dimensional dotplot, the data is also relatively symmetric, so the empirical rule can be used. It is much more accurate in this case than Chebyshev’s Theorem.</p>
 <pre class="r"><code>mn &lt;- mean(epagas_data$ï..MPG)
 sdd &lt;- sd(epagas_data$ï..MPG)
 epagas_data &lt;- epagas_data %&gt;% mutate( z = (ï..MPG-mn)/sdd, 

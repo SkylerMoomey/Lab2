@@ -10,6 +10,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
 ```
 
 # Tasks
@@ -74,17 +76,20 @@ getmode <- function(v) {
    uniqv <- unique(v)
    uniqv[which.max(tabulate(match(v, uniqv)))]
 }
+
+length(epagas_data$ï..MPG)
+length(epagas_data$ï..MPG[abs(z) <= 2])
+
+#proportion of data within 2 standard deviations is 96/100
 ```
 
-According to Chebyshev, there should be $1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} = 1 - \frac{1}{4} = \frac{3}{4}$ of the data within two standard deviations of the mean. In reality, `r length(mpg[abs(z) <= 3])/length(mpg) * 100`% of the data is within two standard deviations of the mean. 
+According to Chebyshev, there should be $1 - \frac{1}{k^2} = 1 - \frac{1}{2^2} = 1 - \frac{1}{4} = \frac{3}{4}$ of the data within two standard deviations of the mean. In reality, `r length(mpg[abs(z) <= 2])/length(mpg) * 100`% of the data is within two standard deviations of the mean. 
 
-Chebyshev's theorem guarantees that a minimum of a quarter of the data will be within two standard deviations, which agrees with our findings.
+Chebyshev's theorem guarantees that a minimum of three quarters of the data will be within two standard deviations, which agrees with our findings.
 
-The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is `r getmode(mpg)`, so the empirical rule can be used. It is much more accurate in this case than Chebyshev's Theorem. 
+The empirical rule, by contrast, estimates that about 95% of the data points will be within two standard deviations, assuming the data is uni-modal and relatively symmetric. The only mode of our data is `r getmode(mpg)`. As you can see in our 2-dimensional dotplot, the data is also relatively symmetric, so the empirical rule can be used. It is much more accurate in this case than Chebyshev's Theorem. 
 
 ```{r}
-library(ggplot2)
-library(dplyr)
 mn <- mean(epagas_data$ï..MPG)
 sdd <- sd(epagas_data$ï..MPG)
 epagas_data <- epagas_data %>% mutate( z = (ï..MPG-mn)/sdd, 
